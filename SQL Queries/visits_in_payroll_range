@@ -1,0 +1,13 @@
+SELECT  
+    pv.Id,
+    CONCAT(p.LastName, ', ', p.FirstName) AS Full_Name, 
+    pv.AwvDate AS visit_date,
+    pv.HraStatusId,
+    vm.Mode,
+    a.CompanyName
+FROM SmartHRA.dbo.PatientVisit AS pv
+LEFT JOIN SmartHRA.dbo.VisitMode AS vm ON pv.VisitModeId = vm.Id
+LEFT JOIN SmartHRA.dbo.Person AS p ON pv.PhysicianUserId = p.UserId
+LEFT JOIN SmartHRA.dbo.Account AS a ON pv.AccountId = a.Id
+	WHERE AwvDate > Convert(datetime, '2023-10-23')
+		AND AwvDate < Convert(datetime, '2023-11-6')
